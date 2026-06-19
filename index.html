@@ -205,14 +205,14 @@ function sortByOrder(arr) {
   });
 }
 const STORES = {
-  CH: sortByOrder([
+  CH: [ { code: "ALL_CH", name: "전체 (모든지점)" } ].concat(sortByOrder([
     { code: "210", name: "본점" },
     { code: "400", name: "더현대 서울" },
     { code: "430", name: "중동" },
     { code: "460", name: "더현대 대구" }
-  ]),
+  ])),
   CC: [ { code: "240", name: "부산" } ],
-  GENERAL: sortByOrder([
+  GENERAL: [ { code: "ALL", name: "전체 (모든지점)" } ].concat(sortByOrder([
     { code: "220", name: "무역센터" },
     { code: "260", name: "천호" },
     { code: "270", name: "신촌" },
@@ -223,7 +223,7 @@ const STORES = {
     { code: "470", name: "충청" },
     { code: "480", name: "판교" },
     { code: "750", name: "가든파이브" }
-  ])
+  ]))
 };
 const CAT_NAME = { CH: "CH 1985", GENERAL: "문화센터", CC: "컬처커넥트" };
 const PC_BASE = "https://www.ehyundai.com/newCulture/CT/CT010100_L.do";
@@ -248,7 +248,8 @@ function updateStores() {
   sel.innerHTML = '<option value="">선택하세요</option>';
   STORES[cat].forEach(s => {
     const o = document.createElement("option");
-    o.value = s.code; o.textContent = s.name + " (" + s.code + ")";
+    o.value = s.code;
+    o.textContent = (s.code === "ALL_CH" || s.code === "ALL") ? s.name : s.name + " (" + s.code + ")";
     sel.appendChild(o);
   });
 }
