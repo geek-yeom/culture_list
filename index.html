@@ -104,6 +104,14 @@
   .copy-btn.done { background: var(--green); color: #fff; border-color: var(--green); }
   .copy-btn:disabled { cursor: default; }
 
+  .open-btn {
+    flex-shrink: 0; font-size: 12px; font-weight: 700; padding: 9px 16px;
+    background: var(--black); color: #fff; border: 1px solid var(--black);
+    border-radius: 2px; cursor: pointer; font-family: inherit;
+    transition: all 0.15s; white-space: nowrap; min-width: 64px;
+  }
+  .open-btn:hover { background: #000; }
+
   .reset-row { text-align: center; margin-top: 18px; }
   .reset-btn {
     font-size: 12px; font-weight: 600; color: var(--text-sub);
@@ -116,7 +124,7 @@
     body { padding: 28px 16px; }
     .title { font-size: 20px; }
     .link-card-body { flex-direction: column; align-items: stretch; }
-    .copy-btn { width: 100%; }
+    .copy-btn, .open-btn { width: 100%; }
   }
 </style>
 </head>
@@ -164,6 +172,7 @@
       <div class="link-card-body">
         <span class="link-url" id="pcUrl"></span>
         <button class="copy-btn" onclick="copyUrl('pcUrl', this)">복사</button>
+        <button class="open-btn" onclick="openUrl('pcUrl')">바로가기</button>
       </div>
     </div>
 
@@ -172,6 +181,7 @@
       <div class="link-card-body">
         <span class="link-url" id="mobileUrl"></span>
         <button class="copy-btn" onclick="copyUrl('mobileUrl', this)">복사</button>
+        <button class="open-btn" onclick="openUrl('mobileUrl')">바로가기</button>
       </div>
     </div>
 
@@ -273,6 +283,10 @@ function copyUrl(id, btn) {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(onDone).catch(() => fallbackCopy(text, onDone));
   } else { fallbackCopy(text, onDone); }
+}
+function openUrl(id) {
+  const url = document.getElementById(id).textContent;
+  if (url) window.open(url, "_blank", "noopener");
 }
 function resetAll() {
   document.getElementById("category").value = "";
