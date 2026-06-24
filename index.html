@@ -255,7 +255,7 @@ function updateStores() {
 }
 function buildUrl(base, cat, stCd, keyword) {
   const params = ["stCd=" + stCd];
-  if (keyword) params.push("nickNm=" + encodeURIComponent(keyword));
+  if (keyword) params.push("nickCrsNm=" + encodeURIComponent(keyword));
   if (cat === "CH") params.push("ctGubn=CH");
   if (cat === "CC") params.push("ctGubn=CC");
   return base + "?" + params.join("&");
